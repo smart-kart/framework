@@ -1,6 +1,6 @@
 module github.com/smart-kart/framework
 
-go 1.24.4
+go 1.24.0
 
 require (
 	github.com/go-playground/validator/v10 v10.24.0
@@ -11,6 +11,7 @@ require (
 	github.com/stretchr/testify v1.8.4
 	google.golang.org/grpc v1.75.1
 	google.golang.org/protobuf v1.36.9
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -30,7 +31,6 @@ require (
 	golang.org/x/text v0.28.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250929231259-57b25ae835d4 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250922171735-9219d122eba9 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
 replace github.com/smart-kart/proto => ../proto

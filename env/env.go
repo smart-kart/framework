@@ -1,6 +1,7 @@
 package env
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"strings"
@@ -74,6 +75,56 @@ func GetList(key string) []string {
 	return result
 }
 
+// LoadFromEnv loads environment variables from a .env file
+func LoadFromEnv(filePath string) error {
+	file, err := os.Open(filePath)
+	if err != nil {
+		// If .env file doesn't exist, that's okay - just skip it
+		if os.IsNotExist(err) {
+			return nil
+		}
+		return fmt.Errorf("failed to open .env file: %w", err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	lineNum := 0
+	for scanner.Scan() {
+		lineNum++
+		line := strings.TrimSpace(scanner.Text())
+
+		// Skip empty lines and comments
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+
+		// Parse KEY=VALUE format
+		parts := strings.SplitN(line, "=", 2)
+		if len(parts) != 2 {
+			return fmt.Errorf("invalid format at line %d: %s", lineNum, line)
+		}
+
+		key := strings.TrimSpace(parts[0])
+		value := strings.TrimSpace(parts[1])
+
+		// Remove quotes if present
+		value = strings.Trim(value, `"'`)
+
+		// Only set if not already set in environment
+		if os.Getenv(key) == "" {
+			if err := os.Setenv(key, value); err != nil {
+				return fmt.Errorf("failed to set env var %s: %w", key, err)
+			}
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		return fmt.Errorf("error reading .env file: %w", err)
+	}
+
+	return nil
+}
+
 // LoadFromYAML loads environment variables from a YAML file
 func LoadFromYAML(filePath string) error {
 	data, err := os.ReadFile(filePath)
@@ -92,6 +143,22 @@ func LoadFromYAML(filePath string) error {
 				return fmt.Errorf("failed to set env var %s: %w", key, err)
 			}
 		}
+	}
+
+	return nil
+}
+
+// Validate checks that all required environment variables are set
+func Validate(requiredVars ...string) error {
+	var missing []string
+	for _, key := range requiredVars {
+		if os.Getenv(key) == "" {
+			missing = append(missing, key)
+		}
+	}
+
+	if len(missing) > 0 {
+		return fmt.Errorf("missing required environment variables: %s", strings.Join(missing, ", "))
 	}
 
 	return nil

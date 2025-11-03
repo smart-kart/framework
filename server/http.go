@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -107,11 +108,37 @@ func customErrorHandler(_ context.Context, _ *runtime.ServeMux, _ runtime.Marsha
 	_, _ = w.Write(buf)
 }
 
+// outgoingHeaderMatcher allows specific headers (like Set-Cookie) to be forwarded from gRPC to HTTP
+func outgoingHeaderMatcher(key string) (string, bool) {
+	switch key {
+	case "set-cookie":
+		return "Set-Cookie", true
+	default:
+		return runtime.DefaultHeaderMatcher(key)
+	}
+}
+
+// incomingHeaderMatcher allows specific headers (like Cookie) to be forwarded from HTTP to gRPC
+func incomingHeaderMatcher(key string) (string, bool) {
+	// Convert to lowercase for case-insensitive matching
+	lowerKey := strings.ToLower(key)
+
+	switch lowerKey {
+	case "cookie":
+		// Return the metadata key without the grpcgateway prefix
+		return "cookie", true
+	default:
+		return runtime.DefaultHeaderMatcher(key)
+	}
+}
+
 // NewGateway creates a new HTTP gateway
 func NewGateway(ctx context.Context) (*Gateway, error) {
-	// Create gRPC-gateway runtime mux with custom error handler
+	// Create gRPC-gateway runtime mux with custom error handler and metadata forwarders
 	mux := runtime.NewServeMux(
 		runtime.WithErrorHandler(customErrorHandler),
+		runtime.WithOutgoingHeaderMatcher(outgoingHeaderMatcher),
+		runtime.WithIncomingHeaderMatcher(incomingHeaderMatcher),
 	)
 
 	return &Gateway{
