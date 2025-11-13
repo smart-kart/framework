@@ -53,7 +53,7 @@ func corsMiddleware(next http.Handler) http.Handler {
 			}
 		}
 
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
 
@@ -187,6 +187,12 @@ func (g *Gateway) WithServiceHandler(ctx context.Context, svc interface{}) (*Gat
 	}
 
 	return g, nil
+}
+
+// WrapHandler wraps the current handler with a custom wrapper function
+// This is useful for adding custom routes or middleware that need to intercept requests
+func (g *Gateway) WrapHandler(wrapper func(http.Handler) http.Handler) {
+	g.server.Handler = wrapper(g.server.Handler)
 }
 
 // ListenAndServe starts the HTTP server
