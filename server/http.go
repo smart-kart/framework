@@ -140,8 +140,12 @@ func incomingHeaderMatcher(key string) (string, bool) {
 
 	switch lowerKey {
 	case "cookie":
-		// Return the metadata key without the grpcgateway prefix
-		return "cookie", true
+		// Forward cookie header to gRPC metadata
+		// Use "grpcgateway-cookie" to be consistent with other forwarded headers
+		return "grpcgateway-cookie", true
+	case "authorization":
+		// Also forward authorization header
+		return "grpcgateway-authorization", true
 	default:
 		return runtime.DefaultHeaderMatcher(key)
 	}
