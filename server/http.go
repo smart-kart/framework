@@ -38,11 +38,25 @@ func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Allow requests from frontend origins
 		origin := r.Header.Get("Origin")
+
+		// Get allowed origins from environment variable or use defaults
+		allowedOriginsEnv := env.GetOrDefault("CORS_ALLOWED_ORIGINS", "")
 		allowedOrigins := []string{
 			"http://localhost:8000",
 			"http://localhost:3000",
 			"http://localhost:5173", // Vite default
 			"http://localhost:8083", // Admin dashboard
+		}
+
+		// Parse additional origins from environment variable (comma-separated)
+		if allowedOriginsEnv != "" {
+			envOrigins := strings.Split(allowedOriginsEnv, ",")
+			for _, o := range envOrigins {
+				trimmed := strings.TrimSpace(o)
+				if trimmed != "" {
+					allowedOrigins = append(allowedOrigins, trimmed)
+				}
+			}
 		}
 
 		// Check if origin is allowed
