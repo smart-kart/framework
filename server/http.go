@@ -68,8 +68,13 @@ func corsMiddleware(next http.Handler) http.Handler {
 		}
 
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, X-Session-ID")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
+
+		// Disable caching for API responses to ensure fresh data (especially inventory)
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		w.Header().Set("Pragma", "no-cache")
+		w.Header().Set("Expires", "0")
 
 		// Handle preflight OPTIONS request
 		if r.Method == "OPTIONS" {
@@ -146,6 +151,12 @@ func incomingHeaderMatcher(key string) (string, bool) {
 	case "authorization":
 		// Also forward authorization header
 		return "grpcgateway-authorization", true
+	case "x-user-id":
+		// Forward user ID header (set by JWT middleware after token validation)
+		return "x-user-id", true
+	case "x-session-id":
+		// Forward session ID header for guest cart operations
+		return "x-session-id", true
 	default:
 		return runtime.DefaultHeaderMatcher(key)
 	}

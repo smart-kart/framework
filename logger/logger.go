@@ -13,6 +13,7 @@ const loggerKey contextKey = "logger"
 // Logger interface
 type Logger interface {
 	Info(msg string, args ...interface{})
+	Warn(msg string, args ...interface{})
 	Error(msg string, args ...interface{})
 	Fatal(msg string, args ...interface{})
 	Debug(msg string, args ...interface{})
@@ -21,6 +22,7 @@ type Logger interface {
 // defaultLogger implements Logger interface
 type defaultLogger struct {
 	infoLog  *log.Logger
+	warnLog  *log.Logger
 	errorLog *log.Logger
 	debugLog *log.Logger
 }
@@ -29,6 +31,7 @@ type defaultLogger struct {
 func New() Logger {
 	return &defaultLogger{
 		infoLog:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
+		warnLog:  log.New(os.Stdout, "WARN: ", log.Ldate|log.Ltime|log.Lshortfile),
 		errorLog: log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
 		debugLog: log.New(os.Stdout, "DEBUG: ", log.Ldate|log.Ltime|log.Lshortfile),
 	}
@@ -36,6 +39,10 @@ func New() Logger {
 
 func (l *defaultLogger) Info(msg string, args ...interface{}) {
 	l.infoLog.Printf(msg, args...)
+}
+
+func (l *defaultLogger) Warn(msg string, args ...interface{}) {
+	l.warnLog.Printf(msg, args...)
 }
 
 func (l *defaultLogger) Error(msg string, args ...interface{}) {
