@@ -31,7 +31,12 @@ func NewGRPC() *GRPCServer {
 
 // WithServiceInterceptors adds interceptors to the server
 func (s *GRPCServer) WithServiceInterceptors(interceptors ...interface{}) *GRPCServer {
-	// TODO: Convert interface{} to actual gRPC interceptors
+	// Convert interface{} to actual gRPC interceptors
+	for _, ipt := range interceptors {
+		if unaryInterceptor, ok := ipt.(grpc.UnaryServerInterceptor); ok {
+			s.interceptors = append(s.interceptors, unaryInterceptor)
+		}
+	}
 	return s
 }
 

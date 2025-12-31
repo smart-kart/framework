@@ -154,6 +154,9 @@ func incomingHeaderMatcher(key string) (string, bool) {
 	case "x-user-id":
 		// Forward user ID header (set by JWT middleware after token validation)
 		return "x-user-id", true
+	case "x-user-role":
+		// Forward user role header (set by JWT middleware for admin authentication)
+		return "x-user-role", true
 	case "x-session-id":
 		// Forward session ID header for guest cart operations
 		return "x-session-id", true
