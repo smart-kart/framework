@@ -4,8 +4,8 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 
-	"github.com/smart-kart/framework/env"
-	"github.com/smart-kart/framework/logger"
+	"github.com/cozy-hub-app/framework/env"
+	"github.com/cozy-hub-app/framework/logger"
 )
 
 // RunProfiler starts the profiler server

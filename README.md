@@ -1,6 +1,6 @@
-# Smart Kart Framework
+# Cozy Hub Framework
 
-Shared build configurations and utilities for Smart Kart services.
+Shared build configurations and utilities for Cozy Hub services.
 
 ## Structure
 

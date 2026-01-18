@@ -8,8 +8,8 @@ import (
 
 	"github.com/go-playground/validator/v10"
 
-	"github.com/smart-kart/framework/response"
-	protov1 "github.com/smart-kart/proto/gen/go/proto/v1"
+	"github.com/cozy-hub-app/framework/response"
+	protov1 "github.com/cozy-hub-app/proto/gen/go/proto/v1"
 )
 
 // global object

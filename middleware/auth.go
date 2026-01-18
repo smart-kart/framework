@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/smart-kart/framework/jwt"
+	"github.com/cozy-hub-app/framework/jwt"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )

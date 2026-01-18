@@ -1,4 +1,4 @@
-# Smart Kart Framework - Complete Documentation
+# Cozy Hub Framework - Complete Documentation
 
 ## Table of Contents
 1. [Framework Overview](#framework-overview)
@@ -20,7 +20,7 @@
 ## Framework Overview
 
 ### Purpose
-The Smart Kart Framework is a shared library/module that provides common utilities, configurations, and base functionality to all microservices in the Smart Kart ecosystem (Account service, Products service, etc.).
+The Cozy Hub Framework is a shared library/module that provides common utilities, configurations, and base functionality to all microservices in the Cozy Hub ecosystem (Account service, Products service, etc.).
 
 ### Key Responsibilities
 - Provide standardized gRPC and HTTP server implementations
@@ -34,7 +34,7 @@ The Smart Kart Framework is a shared library/module that provides common utiliti
 
 ### Module Path
 ```
-github.com/smart-kart/framework
+github.com/cozy-hub/framework
 ```
 
 ---
@@ -644,7 +644,7 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_USER=postgres
 DB_PASSWORD=secret
-DB_NAME=smart_kart
+DB_NAME=cozy_hub
 ```
 
 ---
@@ -854,7 +854,7 @@ host={DB_HOST} port={DB_PORT} user={DB_USER} password={DB_PASSWORD} dbname={DB_N
 ## Build System and Make Targets
 
 ### Root Makefile
-Location: `/Users/mrpsycho/smart-kart/framework/Makefile`
+Location: `/Users/mrpsycho/cozy-hub/framework/Makefile`
 
 Simply includes the common Makefile:
 ```makefile
@@ -862,7 +862,7 @@ include make/proto.mk
 ```
 
 ### Proto Makefile
-Location: `/Users/mrpsycho/smart-kart/framework/make/proto.mk`
+Location: `/Users/mrpsycho/cozy-hub/framework/make/proto.mk`
 
 This file provides all build, test, and deployment targets.
 
@@ -981,7 +981,7 @@ github.com/jackc/pgx/v5 v5.7.6
   - Connection pooling
   - Prepared statement support
 
-github.com/smart-kart/proto v0.0.0
+github.com/cozy-hub/proto v0.0.0
   - Local proto package (replaced with ../proto)
   - Contains .proto definitions
   - Generated code: *pb.go files
@@ -1032,7 +1032,7 @@ go 1.24.0
 go list -m all
 
 # Update framework only
-go get github.com/smart-kart/framework
+go get github.com/cozy-hub/framework
 
 # Update all dependencies
 make update-dep
@@ -1052,12 +1052,12 @@ make mod
 
 ```go
 import (
-    "github.com/smart-kart/framework/env"
-    "github.com/smart-kart/framework/logger"
-    "github.com/smart-kart/framework/pgx"
-    "github.com/smart-kart/framework/response"
-    "github.com/smart-kart/framework/server"
-    "github.com/smart-kart/framework/validate"
+    "github.com/cozy-hub/framework/env"
+    "github.com/cozy-hub/framework/logger"
+    "github.com/cozy-hub/framework/pgx"
+    "github.com/cozy-hub/framework/response"
+    "github.com/cozy-hub/framework/server"
+    "github.com/cozy-hub/framework/validate"
 )
 ```
 
@@ -1468,32 +1468,32 @@ if err := validate.Request(ctx, request, "RequestType"); err != nil {
 ## File Locations Reference
 
 ### Core Framework Files
-- `/Users/mrpsycho/smart-kart/framework/application/application.go` - Application lifecycle
-- `/Users/mrpsycho/smart-kart/framework/env/env.go` - Environment management
-- `/Users/mrpsycho/smart-kart/framework/logger/logger.go` - Logging
-- `/Users/mrpsycho/smart-kart/framework/pgx/driver.go` - PostgreSQL driver
-- `/Users/mrpsycho/smart-kart/framework/server/grpc.go` - gRPC server
-- `/Users/mrpsycho/smart-kart/framework/server/http.go` - HTTP gateway
-- `/Users/mrpsycho/smart-kart/framework/server/profiler.go` - Performance profiler
-- `/Users/mrpsycho/smart-kart/framework/response/constant.go` - Response constants
-- `/Users/mrpsycho/smart-kart/framework/response/error_code_msg.go` - Error messages
-- `/Users/mrpsycho/smart-kart/framework/response/grpc.go` - Response builders
-- `/Users/mrpsycho/smart-kart/framework/validate/validate.go` - Request validation
-- `/Users/mrpsycho/smart-kart/framework/validate/constant.go` - Validation constants
-- `/Users/mrpsycho/smart-kart/framework/utils/generic/generic.go` - Generic utilities
+- `/Users/mrpsycho/cozy-hub/framework/application/application.go` - Application lifecycle
+- `/Users/mrpsycho/cozy-hub/framework/env/env.go` - Environment management
+- `/Users/mrpsycho/cozy-hub/framework/logger/logger.go` - Logging
+- `/Users/mrpsycho/cozy-hub/framework/pgx/driver.go` - PostgreSQL driver
+- `/Users/mrpsycho/cozy-hub/framework/server/grpc.go` - gRPC server
+- `/Users/mrpsycho/cozy-hub/framework/server/http.go` - HTTP gateway
+- `/Users/mrpsycho/cozy-hub/framework/server/profiler.go` - Performance profiler
+- `/Users/mrpsycho/cozy-hub/framework/response/constant.go` - Response constants
+- `/Users/mrpsycho/cozy-hub/framework/response/error_code_msg.go` - Error messages
+- `/Users/mrpsycho/cozy-hub/framework/response/grpc.go` - Response builders
+- `/Users/mrpsycho/cozy-hub/framework/validate/validate.go` - Request validation
+- `/Users/mrpsycho/cozy-hub/framework/validate/constant.go` - Validation constants
+- `/Users/mrpsycho/cozy-hub/framework/utils/generic/generic.go` - Generic utilities
 
 ### Build and Configuration
-- `/Users/mrpsycho/smart-kart/framework/Makefile` - Root Makefile
-- `/Users/mrpsycho/smart-kart/framework/make/proto.mk` - Proto build targets
-- `/Users/mrpsycho/smart-kart/framework/go.mod` - Module dependencies
-- `/Users/mrpsycho/smart-kart/framework/go.sum` - Locked versions
-- `/Users/mrpsycho/smart-kart/framework/README.md` - Original README
-- `/Users/mrpsycho/smart-kart/framework/claude.md` - This file
+- `/Users/mrpsycho/cozy-hub/framework/Makefile` - Root Makefile
+- `/Users/mrpsycho/cozy-hub/framework/make/proto.mk` - Proto build targets
+- `/Users/mrpsycho/cozy-hub/framework/go.mod` - Module dependencies
+- `/Users/mrpsycho/cozy-hub/framework/go.sum` - Locked versions
+- `/Users/mrpsycho/cozy-hub/framework/README.md` - Original README
+- `/Users/mrpsycho/cozy-hub/framework/claude.md` - This file
 
 ### Dependent Services
-- `/Users/mrpsycho/smart-kart/account/` - Account service (imports framework)
-- `/Users/mrpsycho/smart-kart/products/` - Products service (imports framework)
-- `/Users/mrpsycho/smart-kart/proto/` - Proto definitions (used by framework)
+- `/Users/mrpsycho/cozy-hub/account/` - Account service (imports framework)
+- `/Users/mrpsycho/cozy-hub/products/` - Products service (imports framework)
+- `/Users/mrpsycho/cozy-hub/proto/` - Proto definitions (used by framework)
 
 ---
 
@@ -1503,13 +1503,13 @@ if err := validate.Request(ctx, request, "RequestType"); err != nil {
 
 ```go
 import (
-    "github.com/smart-kart/framework/application"
-    "github.com/smart-kart/framework/env"
-    "github.com/smart-kart/framework/logger"
-    "github.com/smart-kart/framework/pgx"
-    "github.com/smart-kart/framework/response"
-    "github.com/smart-kart/framework/server"
-    "github.com/smart-kart/framework/validate"
+    "github.com/cozy-hub/framework/application"
+    "github.com/cozy-hub/framework/env"
+    "github.com/cozy-hub/framework/logger"
+    "github.com/cozy-hub/framework/pgx"
+    "github.com/cozy-hub/framework/response"
+    "github.com/cozy-hub/framework/server"
+    "github.com/cozy-hub/framework/validate"
 )
 ```
 
@@ -1559,7 +1559,7 @@ validate.RegisterCustomValidators(customValidators)
 
 **Solution**: Update go.mod
 ```bash
-go get github.com/smart-kart/framework
+go get github.com/cozy-hub/framework
 cd framework && make mod
 ```
 

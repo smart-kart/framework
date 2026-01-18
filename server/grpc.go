@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/smart-kart/framework/env"
-	"github.com/smart-kart/framework/logger"
+	"github.com/cozy-hub-app/framework/env"
+	"github.com/cozy-hub-app/framework/logger"
 	"google.golang.org/grpc"
 )
 

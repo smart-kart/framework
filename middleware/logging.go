@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/smart-kart/framework/logger"
+	"github.com/cozy-hub-app/framework/logger"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"

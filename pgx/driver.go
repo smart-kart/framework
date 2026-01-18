@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/smart-kart/framework/env"
+	"github.com/cozy-hub-app/framework/env"
 )
 
 //nolint:gochecknoglobals // expected to be at global level

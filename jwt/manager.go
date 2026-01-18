@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/smart-kart/framework/env"
+	"github.com/cozy-hub-app/framework/env"
 )
 
 var (
@@ -78,7 +78,7 @@ func GetJWTManager() *JWTManager {
 
 		issuer := env.Get(env.JWTIssuer)
 		if issuer == "" {
-			issuer = "smart-kart-service"
+			issuer = "cozy-hub-service"
 		}
 
 		jwtManagerInstance = NewJWTManager(secretKey, accessTTL, refreshTTL, issuer)

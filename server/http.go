@@ -10,9 +10,9 @@ import (
 	"time"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"github.com/smart-kart/framework/env"
-	"github.com/smart-kart/framework/logger"
-	protov1 "github.com/smart-kart/proto/gen/go/proto/v1"
+	"github.com/cozy-hub-app/framework/env"
+	"github.com/cozy-hub-app/framework/logger"
+	protov1 "github.com/cozy-hub-app/proto/gen/go/proto/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/status"

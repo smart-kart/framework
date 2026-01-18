@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/smart-kart/framework/response"
-	"github.com/smart-kart/framework/utils/generic"
+	"github.com/cozy-hub-app/framework/response"
+	"github.com/cozy-hub-app/framework/utils/generic"
 )
 
 func TestReturnZero(t *testing.T) {

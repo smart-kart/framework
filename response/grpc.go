@@ -13,9 +13,9 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/anypb"
 
-	"github.com/smart-kart/framework/logger"
-	"github.com/smart-kart/framework/utils/generic"
-	protov1 "github.com/smart-kart/proto/gen/go/proto/v1"
+	"github.com/cozy-hub-app/framework/logger"
+	"github.com/cozy-hub-app/framework/utils/generic"
+	protov1 "github.com/cozy-hub-app/proto/gen/go/proto/v1"
 )
 
 // generic data type being used only in place of grpc status error
